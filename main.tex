@@ -45,32 +45,32 @@
 %%%%% POCZĄTEK ZASADNICZEGO TEKSTU PRACY
 
 \chapter{Wprowadzenie}
-Tematem pracy jest aplikacja internetowa implementująca wybrane funkcje platformy blogowej. Aplikacja opisana w dalszej części pracy ma być połączeniem funkcji popularnych serwisów internetowych. Pierwszym z nich jest "Reddit" założony w 2005 roku. Dziś jest piątą (według Alexa) najczęściej odwiedzaną stroną w Stanach Zjednoczonych, miesięcznie przyciągającą 330 milionów użytkowników. Na początku jej główną funkcjonalnością była możliwość dzielenia się linkami do stron przez użytkowników oraz głosowaniem i komentowanie ich. Z czasem wraz z rozwojem serwisu użytkownikom oddano możliwość dzielenia się nie tylko łączami do innych stron, ale też postami czy obrazkami. Dziś jest domem dla tysięcy społeczności. Drugim serwisem jest powstały w 2012 roku Medium. Platforma skupia zarówno profesjonalnych dziennikarzy, jak i amatorów. Jej głównym celem jest dostarczenie użytkownikom wartościowych treści w przyjemnej formie. W odróżnieniu od Reddita strona skupia się na udostępnianej treści, a nie na interakcjach pomiędzy użytkownikami.
+Tematem pracy jest aplikacja internetowa implementująca wybrane funkcje platformy blogowej. Platforma opisana w dalszej części pracy ma być połączeniem funkcji popularnych serwisów internetowych. Pierwszym z nich jest \textit{\textbf{Reddit}} założony w 2005 roku. Dziś jest piątą (według Alexa) najczęściej odwiedzaną stroną w Stanach Zjednoczonych, miesięcznie przyciągającą 330 milionów użytkowników. Na początku jej główną funkcjonalnością była możliwość dzielenia się linkami do stron przez użytkowników oraz głosowaniem i komentowanie ich. Z czasem wraz z rozwojem serwisu użytkownikom oddano możliwość dzielenia się nie tylko łączami do innych stron, ale też postami czy obrazkami. Dziś jest domem dla tysięcy społeczności. Drugim serwisem jest powstały w 2012 roku \textit{\textbf{Medium}}. Platforma skupia zarówno profesjonalnych dziennikarzy, jak i amatorów. Jej głównym celem jest dostarczenie użytkownikom wartościowych treści w przyjemnej formie. W odróżnieniu od Reddita strona skupia się na udostępnianej treści, a nie na interakcjach pomiędzy użytkownikami.
 
-Podczas wyboru zestawu narzędzi do realizacji implementacji pracy chciałem, aby zawierał on jak najwięcej nowych, wykorzystywanych na rynku komercyjnym rozwiązań. Co pozwoliłoby mi poszerzyć moje umiejętności.s
+Podczas wyboru zestawu narzędzi do realizacji implementacji pracy chciałem, aby zawierał on jak najwięcej nowych, wykorzystywanych na rynku komercyjnym rozwiązań. Co pozwoliłoby mi poszerzyć moje umiejętności.
 
 \chapter{Opis i analiza zagadnienia}
 
-Pierwsze blogi powstały w późnych latach 90-tych. Były prostymi, statycznymi stronami WWW aktualizowanymi ręcznie. Wpisy były wyświetlane użytkownikowi w odwrotnej chronologicznej kolejności. Wraz z upływem czasu i wzrostem popularności internetowych dzienników powstały dedykowane serwisy oraz oprogramowanie służące do ich prowadzenia. Pozwoliło to na prowadzenie własnego bloga przez przeciętnego użytkownika internetu. W dniu dzisiejszym najpopularniejszą odmianą są mikroblogi - strony umożliwiające użytkownikom dzielenie się krótkimi, kilku zdaniowymi przemyśleniami lub obrazkami - np. Twitter, Facebook, Wykop.pl 
+Pierwsze blogi powstały w późnych latach 90-tych. Były prostymi, statycznymi stronami WWW aktualizowanymi ręcznie. Wpisy były wyświetlane użytkownikowi w odwrotnej chronologicznej kolejności. Wraz z upływem czasu i wzrostem popularności internetowych dzienników powstały dedykowane serwisy oraz oprogramowanie służące do ich prowadzenia. Pozwoliło to na prowadzenie własnego bloga przez przeciętnego użytkownika internetu. W dniu dzisiejszym najpopularniejszą odmianą są mikroblogi - strony umożliwiające użytkownikom dzielenie się krótkimi, kilku zdaniowymi przemyśleniami lub obrazkami np. Twitter, Facebook, Wykop.pl.
 
-\subsection{Wymagania funkcjonalne}
+\section{Wymagania funkcjonalne}
 
 \begin{itemize}
     \item Niezalogowany użytkownik może: 
     \begin{itemize}
-         \item Zalogować się do istniejącego konta
-         \item Utworzyć nowe konto
-         \item Przeglądać listę postów
-         \item Przeglądać post wraz z jego komentarzami
-         \item Przeglądać listę kategorii
-         \item Przeglądać posty w danej kategorii
+         \item zalogować się do istniejącego konta
+         \item utworzyć nowe konto
+         \item przeglądać listę postów
+         \item przeglądać post wraz z jego komentarzami
+         \item przeglądać listę kategorii
+         \item przeglądać posty w danej kategorii
     \end{itemize}
     \item Zalogowany użytkownik może:
         \begin{itemize}
-            \item Wylogować się
-            \item Pisać nowe posty
-            \item Pisać komentarze
-            \item Przeglądać listę powiadomień
+            \item wylogować się
+            \item pisać nowe posty
+            \item pisać komentarze
+            \item przeglądać listę powiadomień
         \end{itemize}
 \end{itemize}
 
@@ -80,29 +80,16 @@ Opisana w pracy aplikacja implementuje wybrane elementy serwisu blogowego, jedna
 \begin{itemize}
     \item rozwój systemu powiadomień, dodanie nowych typów
     \item rozbudowa edytora postów (możliwości stylowania tekstu)
-    \item personalizowana strona główna na której każdy użytkownik będzie mógł wybrać kategorię postów jakimi jest zainteresowany
+    \item personalizowana strona główna, na której każdy użytkownik będzie mógł wybrać kategorię postów, jakimi jest zainteresowany
     \item możliwość śledzenia użytkowników i bycia informowanym o ich aktywności
 \end{itemize}
 
 % \subsection{Wnioski}-
 \chapter{Część dla programisty}
 \section{Architektura aplikacji}
-Aplikacja jest napisana w architekturze klient-serwer, podczas jej tworzenia wykorzystano wzorzec separacji  zagadnień (z and. separation of concerns, SoC). Pozwoliło to na podzielenia serwisu na dwie części. Pierwszą jest warstwa dostępu do danych napisana w języku Ruby z wykorzystaniem Ruby on Rails. Odpowiada za przechowywanie danych w bazie danych PostgreSQL oraz ich udostępnienie za pomocą API. Drugą częścią jest warstwa prezentacji, wykorzystuje JavaScript oraz framework React w celu prezentacji danych. Taki podział pozwala na niezależny rozwój każdej z części aplikacji osobno.
+Aplikacja jest napisana w architekturze klient-serwer, podczas jej tworzenia wykorzystano wzorzec separacji  zagadnień (z and. separation of concerns, SoC). Pozwoliło to na podzielenie serwisu na dwie części. Pierwszą jest warstwa dostępu do danych napisana w języku Ruby z wykorzystaniem Ruby on Rails. Odpowiada za przechowywanie danych w bazie danych PostgreSQL oraz ich udostępnienie za pomocą API. Drugą częścią jest warstwa prezentacji, wykorzystuje JavaScript oraz framework React w celu prezentacji danych. Taki podział pozwala na niezależny rozwój każdej z części aplikacji osobno.
 
 \section{Uruchomienie aplikacji}
-
-\subsection{Frontend}
-
-Należy spełnić następujące zależności:
-    \begin{itemize}
-        \item Yarn w wersji 1.13.0
-        \item Zależności znajdujące się w pliku "package.json" 
-    \end{itemize}
-
-\begin{enumerate}
-    \item W folderze "thesis-frontend" poleceniem "yarn" zainstalować brakujące pakiety
-    \item Poleceniem "yarn start" uruchomić serwer deweloperski, jego domyślny adres localhost:3001
-\end{enumerate}
 
 \subsection{Backend}
 Należy spełnić następujące zależności:
@@ -116,15 +103,28 @@ Należy spełnić następujące zależności:
         \end{itemize}
 
 \begin{enumerate}
-    \item W katalogu "thesis-code" poleceniem "bundle install" zainstalować dodatkowe biblioteki
-    \item Wykonać migracje do bazy danych poleceniem "rails db:migrate"
-    \item Poleceniem "foreman start -f Procfile.dev" uruchomić serwer
+    \item W katalogu \textbf{\textit{,,thesis-code"}} poleceniem \textbf{\textit{,,bundle install"}} zainstalować dodatkowe biblioteki
+    \item Wykonać migracje do bazy danych poleceniem \textbf{\textit{,,rails db:migrate"}}
+    \item Poleceniem \textbf{\textit{,,foreman start -f Procfile.dev"}} uruchomić serwer
 \end{enumerate}
+
+\subsection{Frontend}
+Należy spełnić następujące zależności:
+    \begin{itemize}
+        \item Yarn w wersji 1.13.0
+        \item Zależności znajdujące się w pliku "package.json" 
+    \end{itemize}
+
+\begin{enumerate}
+    \item W folderze \textbf{\textit{,,thesis-frontend"}} poleceniem \textbf{\textit{,,yarn"}} zainstalować brakujące pakiety
+    \item Poleceniem \textbf{\textit{"yarn start"}} uruchomić serwer deweloperski, jego domyślny adres \textit{localhost:3001}
+\end{enumerate}
+
 \section{Backend}
-Aplikacja serwerowa została napisana z wykorzystaniem frameworka Ruby on Rails. Powstał on w 2005 roku jako narzędzie do szybkiego tworzenia aplikacji webowych. Głównymi strategiami projektowymi są "Convention Over Configuration" oraz DRY ("Don't repeat yourself"). Dzięki temu programista już po zainicializowaniu projektu otrzymuje domyślną strukturę oraz konfigurację pozwalającą ominąć żmudny proces ręcznego definiowania ustawień. W momencie powstania oferował wiele innowacyjnych funkcji takich jak: generowanie tabel w bazie danych, scaffolding oraz system migracji. Dzisiaj inspiracje Ruby on Rails możemy znaleźć w wielu innych frameworkach np. Django, Sails.js. Napędza serwisy takie jak GitHub, AribBnB, Kickstarter.
+Aplikacja serwerowa została napisana z wykorzystaniem frameworka Ruby on Rails. Powstał on w 2005 roku jako narzędzie do szybkiego tworzenia aplikacji webowych. Głównymi strategiami projektowymi są ,,Convention Over Configuration" oraz DRY (,,Don't repeat yourself"). Dzięki temu programista już po zainicjalizowaniu projektu otrzymuje domyślną strukturę oraz konfigurację pozwalającą ominąć żmudny proces ręcznego definiowania ustawień. W momencie powstania oferował wiele innowacyjnych funkcji takich jak: generowanie tabel w bazie danych na podstawie modeli, scaffolding oraz system migracji. Dzisiaj inspiracje Ruby on Rails możemy znaleźć w wielu innych frameworkach np. Django, Sails.js. Napędza serwisy takie jak GitHub, AribBnB, Kickstarter.
 
 \subsection{Struktura aplikacji}
-Struktura aplikacji serwerowej przedstawiona na rysunku \ref{fig:struktura_serwer1} oraz \ref{fig:struktura_serwer2} powstała w wyniku działania wbudowanego w Ruby on Rails generatora. Utworzył on minimalną konfigurację potrzebną do zaczęcia pracy. Najważniejszą częścią projektu jest katalog \textbf{\textit{,,app"}} to w nim znajdują się wszystkie komponent aplikacji. W podkatalogu \textbf{\textit{,,app/controllers"}} umieszczono kontrolery, odpowiadają one za nadanie sensu żądaniom jakie przychodzą do Api oraz zadbaniu o wygenerowanie poprawnej odpowiedzi. W \textbf{\textit{,,app/services"}} znajdują się klasy serwisów, implementują one interakcje użytkownika z aplikacją. Pozwala to na wyodrębneienie logiki biznesowej z kontrolerów. Konfiguracje do serializera znajdują się w folderze \textbf{\textit{,,app/serializers"}}. Katalog \textbf{\textit{"db}} zawiera aktualny schemat bazy danych co pozwala na przenoszenie bazy pomiędzy komputerami oraz migrację czyli zestaw plików napisany w Ruby DSL pozwalający na zmianę schematu bazy danych bez potrzeby pisania ręcznie poleceń SQL.
+Struktura aplikacji serwerowej przedstawiona na rysunku \ref{fig:struktura_serwer1} oraz \ref{fig:struktura_serwer2} powstała w wyniku działania wbudowanego w Ruby on Rails generatora. Utworzył on minimalną konfigurację potrzebną do zaczęcia pracy. Najważniejszą częścią projektu jest katalog \textbf{\textit{,,app"}} to w nim znajdują się wszystkie komponent aplikacji. W podkatalogu \textbf{\textit{,,app/controllers"}} umieszczono kontrolery, odpowiadają one za nadanie sensu żądaniom jakie przychodzą do API oraz zadbaniu o wygenerowanie poprawnej odpowiedzi. W \textbf{\textit{,,app/services"}} znajdują się klasy serwisów, implementują one interakcje użytkownika z aplikacją. Pozwala to na wyodrębnienie logiki biznesowej z kontrolerów. Konfiguracje do serializera znajdują się w folderze \textbf{\textit{,,app/serializers"}}. Katalog \textbf{\textit{,,db"}} zawiera aktualny schemat bazy danych co pozwala na przenoszenie bazy pomiędzy komputerami oraz migrację czyli zestaw plików napisany w Ruby DSL pozwalający na zmianę schematu bazy danych bez potrzeby pisania ręcznie poleceń SQL.
 \begin{figure}
     \centering
     \begin{minipage}[b]{0.4\textwidth}
@@ -141,17 +141,17 @@ Struktura aplikacji serwerowej przedstawiona na rysunku \ref{fig:struktura_serwe
 \end{figure}
 
 \subsection{Baza danych}
-Jako system przechowywania danych wybrano PostgreSQL. Jest to otwarto źródłowy silnik do zarządzania relacyjnymi bazami danych. Charakteryzuje się on wysoką kompatybilnością ze standardem SQL:2011, zgodnością z ACID (Atomicity, Consistency, Isolation, Durability) oraz niezawodnością. Ruby on Rails w domyślej konfiguracji zapewnia wsparcie dla Postgres`a. Pozwala to na zostosowanie systemu migracji, który wraz z rozbudową aplikacji odpowiednio modyfikuje istniejący schamat bazy danych.
+Jako system przechowywania danych wybrano PostgreSQL. Jest to otwartoźródłowy silnik do zarządzania relacyjnymi bazami danych. Charakteryzuje się on wysoką kompatybilnością ze standardem SQL:2011, zgodnością z ACID (Atomicity, Consistency, Isolation, Durability) oraz niezawodnością. Ruby on Rails w domyślnej konfiguracji zapewnia wsparcie dla Postgresa. Pozwala to na zastosowanie systemu migracji, który wraz z rozbudową aplikacji odpowiednio modyfikuje istniejący schemat bazy danych.
 
 \subsubsection{Schemat bazy danych}
 Baza danych składa się z następujących tabeli: 
 \begin{itemize}
-    \item \textbf{users} - zawiera między innymi takie informacje jak imię, email, hasło. Jest wykorzystywana podczas autentykacji.
+    \item \textbf{users} - zawiera między innymi takie informacje jak imię, e-mail, hasło. Jest wykorzystywana podczas autentykacji.
     \item \textbf{posts} - podstawowy typ danych w platformie blogowej. Składa się z tytułu, zawartości oraz linku do miniaturki.
     \item \textbf{comments} - przechowuje zawartość komentarzy
     \item \textbf{likes} - odpowiada za przechowywania głosów użytkowników
-    \item \textbf{mentions} - gromadzi dane z systemu wspomnień. Dla każdej wspomnianej osoby w komentarzu tworzy wpis z identyfikatorem użytkownika oraz komentarzy, co pozwala na szybkie odnalezienie zarówno osób skojarzonych z wpisem, jak i postów przypisanych danej osobie.
-    \item \textbf{notifications} - odpowiada za powiadomienia. Dzięki polimorficznym asocjacjom możliwa jest rozbudowa tego systemu wraz z rozwojem aplikacji. Dla każdego wpisu w tabeli pamiętane jest zarówno identyfikator powiązanego obiektu ,jak i jego typ. Pozwala to aby jedna tabela zawierała odniesienia do wielu.
+    \item \textbf{mentions} - gromadzi dane z systemu wspomnień. Dla każdej wspomnianej osoby w komentarzu przechowuje wpis z identyfikatorem użytkownika oraz komentarzy, co pozwala na szybkie odnalezienie zarówno osób skojarzonych z wpisem, jak i postów przypisanych danej osobie.
+    \item \textbf{notifications} - odpowiada za powiadomienia. Dzięki polimorficznym asocjacjom możliwa jest rozbudowa tego systemu wraz z rozwojem aplikacji. Dla każdego wpisu w tabeli pamiętane jest zarówno identyfikator powiązanego obiektu,jak i jego typ. Pozwala to, aby jedna tabela zawierała odniesienia do wielu.
 \end{itemize}
 
 \begin{figure}
@@ -164,17 +164,17 @@ Baza danych składa się z następujących tabeli:
 \section{Frontend}
 
 \subsection{React}
-Interfejs udostępniany użytkownikowi został napisany z wykorzystaniem Reacta. Jest to biblioteka JavaScript utworzona w 2016 roku utrzymywana przez Facebook. Dziś jest jednym z najpopularniejszych frameworków do budowy interfejsów użytkownika. Jego główną cechą charakterystyczną jest budowanie złożonych projektów za pomocą wielu mniejszych, wyizolowanych części nazywanych komponentami. Są to klasy lub funkcje które mogą przyjmować jako wejście właściwości (\textbf{\textit{,,props"}}) a zwracają opis jak dany komponent powinien zostać wyrenderowany przez przeglądarkę. Dodatkowo React pozwala na to aby komponenty posiadały stan, czyli zestaw danych które może zmieniać. Biblioteka ta pozwala również na dynamiczne modyfikowaie HTML bez potrzeby przeładowywanie strony. Istnieje możliwość wykorzystania Reacta na urządzeniach mobilnych za pomocą React Native.
+Interfejs udostępniany użytkownikowi został napisany z wykorzystaniem Reacta. Jest to biblioteka JavaScript utworzona w 2016 roku utrzymywana przez Facebook. Dziś jest jednym z najpopularniejszych frameworków do budowy interfejsów użytkownika. Jego główną cechą charakterystyczną jest budowanie złożonych projektów za pomocą wielu mniejszych, wyizolowanych części nazywanych komponentami. Są to klasy lub funkcje, które mogą przyjmować jako wejście właściwości (\textbf{\textit{,,props"}}) a zwracają opis jak dany komponent powinien zostać wyrenderowany przez przeglądarkę. Dodatkowo React pozwala na to, aby komponenty posiadały stan, czyli zestaw danych, które może zmieniać. Biblioteka ta umożliwia również na dynamiczne modyfikowaie HTML bez potrzeby przeładowywanie strony. Istnieje możliwość wykorzystania Reacta na urządzeniach mobilnych za pomocą React Native.
 
 \subsection{Ant Design}
-W aplikacji udostępnianej klientowi bardzo ważnmym elementem jest jej wygląd, dlatego aby całoś aplikacji prezentowała się spójnie zdecydowano się zastosować wytyczne Ant Design oraz ich implementację za pomocą biblioteki \textbf{\textit{,,antd"}} zawierającej zestaw komponentów React. Znacznie to zmniejszyło czas potrzebny na dodawanie stylów to nowych komponentów i pozwoliło skupić się na implementacji nowych funkcjonalności. 
+W aplikacji udostępnianej klientowi bardzo ważnym elementem jest jej wygląd dlatego, aby całość aplikacji prezentowała się spójnie, zdecydowano się zastosować wytyczne Ant Design oraz ich implementację za pomocą biblioteki \textbf{\textit{,,antd"}} zawierającej zestaw komponentów React. Znacznie to zmniejszyło czas potrzebny na dodawanie stylów to nowych komponentów i pozwoliło skupić się na implementacji nowych funkcjonalności. 
 
 \subsection{Struktura projektu}
-Projekt został zainicjowany za pomocą narzędzie \textbf{\textit{,,create-react-app"}} dostarczanego przez Facebooka. Tworzy ono gotowe, skonfigurowane środowisko umożliwiające natychmiastowe rozpoczęcie pracy nad aplikacją. Kod aplikacji został podzielony w następujących folderach: 
+Projekt został zainicjowany za pomocą narzędzia \textbf{\textit{,,create-react-app"}} dostarczanego przez Facebooka. Tworzy ono gotowe, skonfigurowane środowisko umożliwiające natychmiastowe rozpoczęcie pracy nad aplikacją. Kod aplikacji został podzielony w następujących folderach: 
 \begin{itemize}
     \item \textbf{\textunderscore helpers} - zawiera pomocnicze funkcje nie przypisane do konkretnego komponentu.
     \item \textbf{\textunderscore services} - znajdują się tu funkcje odpowiedzialne za interakcję z API.
-    \item \textbf{componets} - jest to najważniejszy folder. To w nim znajdują się wszystkie komponenty odpowiedzialene za wygląd i działanie aplikacji.
+    \item \textbf{componets} - jest to najważniejszy folder. To w nim znajdują się wszystkie komponenty odpowiedzialne za wygląd i działanie aplikacji.
 \end{itemize}
 \begin{figure}
     \centering
@@ -182,6 +182,8 @@ Projekt został zainicjowany za pomocą narzędzie \textbf{\textit{,,create-reac
     \caption{Struktura projektu}
     \label{fig:frontend_struct}
 \end{figure}
+
+
 \chapter{Część dla użytkownika}
 \section{Opis programu}
 Blogger jest platformą blogową pozwalającą użytkownika dodawać wpisy w jednej z predefiniowanych kategorii. Mogą oni również wchodzić w interakcję między sobą poprzez dyskusje pod wpisami lub system ich oceniania. Aby móc korzystać z tych funkcji wystarczy jedynie utworzyć i zweryfikować za pomocą e-mail konto.
@@ -190,79 +192,80 @@ Serwis można podzielić na dwie części, jedna dla każdego użytkownika, drug
 
 \subsection{Niezalogowany użytkownik}
 \subsubsection{Strona główna}
-Użytkownik po wejściu na adres aplikacji ukaże się strona główna na której będzie mógł przeglądać listę wszystkich postów jakie zostały utworzone. Każdy z nich jest reprezentowany przez przeglądowy opis na który składa się: tytuł, skrócona treść wpisu oraz graficzna miniaturka. Użytkownik może zostać przeniesiony do szczegółowego widoku wpisu po kliknięciu w jeden z nich. 
+Użytkownik po wejściu na adres aplikacji ukaże się strona główna (rys. \ref{fig:main_page}), na której będzie mógł przeglądać listę wszystkich postów, jakie zostały utworzone. Każdy z nich jest reprezentowany przez przeglądowy opis, na który składa się: tytuł, skrócona treść wpisu oraz graficzna miniaturka. Użytkownik może zostać przeniesiony do szczegółowego widoku wpisu po kliknięciu w jeden z nich.
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{images/stronaglowna.png}
     \caption{Strona główna aplikacji}
-    \label{fig:my_label}
+    \label{fig:main_page}
 \end{figure}[]
 
 \subsubsection{Szczegółowy widok wpisu}
-W tym widoku użytkownik ma dostęp do pełnej treści wpisu oraz komentarzy
+W tym widoku (rys. \ref{fig:post_view}) użytkownik ma dostęp do pełnej treści wpisu oraz komentarzy
 
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{images/widok_postu.png}
     \caption{Widok szczegółowy}
-    \label{fig:my_label}
+    \label{fig:post_view}
 \end{figure}
 
 \subsubsection{Rejestracja nowego użytkownika}
-Aby zarejestrować się w serwisie należ podać imię, nick, email, hasło opcjonalnie użytkownik może dodać swój avatar. Po wysłaniu formularza, na podany wcześniej adres poczty zostanie wysłany link aktywujący konto.
+Aby zarejestrować się w serwisie (rys. \ref{fig:register}), należ podać imię, nick, e-mail, hasło opcjonalnie użytkownik może dodać swój awatar. Po wysłaniu formularza, na podany wcześniej adres poczty zostanie wysłany link aktywujący konto.
 
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{images/rejestracja.png}
     \caption{Rejestracja nowego użytkownika}
-    \label{fig:my_label}
+    \label{fig:register}
 \end{figure}
 
 \subsubsection{Logowanie}
-Aby móc korzystać ze wszystkich możliwości serwisu wymagane jest logowanie. Możliwe jest tylko po wcześniejszej aktywacji konta. W tym celu należy podać adres e-mail oraz hasło
+Aby móc korzystać ze wszystkich możliwości serwisu wymagane jest logowanie (rys. \ref{fig:login}). Możliwe jest tylko po wcześniejszej aktywacji konta. W tym celu należy podać adres e-mail oraz hasło.
 
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{images/logowanie.png}
     \caption{Logowanie}
-    \label{fig:my_label}
+    \label{fig:login}
 \end{figure}
 
 \subsection{Zalogowany użytkownik}
 
 \subsubsection{Dodawanie wpisów}
-Zalogowany użytkownik może dodawać wpisy do serwisu. Aby tego dokonać musi kliknąć w przycisk znajdujący się w nagłówku strony "Create new post", a następnie zostanie przekierowany do odpowiedniego formularza. Tam do wypełnienia będzie miał takie pola jak tytuł, treść, kategoria oraz miniaturka. Po wysłaniu oraz walidacji formularza wpis zostanie utworzony a użytkownik przeniesiony do niego.
+Zalogowany użytkownik może dodawać wpisy do serwisu. Aby tego dokonać, musi kliknąć przycisk znajdujący się w nagłówku strony \textit{,,Create new post"}, a następnie zostanie przekierowany do odpowiedniego formularza. Tam do wypełnienia będzie miał takie pola jak tytuł, treść, kategoria oraz miniaturka. Po wysłaniu oraz walidacji formularza wpis zostanie utworzony a użytkownik przeniesiony do niego.
 
 \subsubsection{Ocenianie wpisów}
-Każdy zalogowany użytkownik ma możliwość oceniania użytkowników. Wystarczy że kliknie w łapkę w dół lub w górę przy danym poście. 
+Każdy zalogowany użytkownik ma możliwość oceniania użytkowników. Wystarczy że klikniąć w łapkę w dół lub w górę przy danym poście (rys.\ref{fig:like}). 
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{images/like.png}
     \caption{Moduł oceniania}
-    \label{fig:my_label}
+    \label{fig:like}
 \end{figure}
 
 \subsubsection{Komentarze}
-Dla zalogowanych użytkowników udostępniona została funkcja dyskusji na temat wpisów za pomocą komentarzy. Dodawanie nowych wpisów jest możliwe za pomocą formularza dostępnego w szczegółowym widoku wpisu. Dodatkowo w system komentarzy wbudowany jest system "wołania". Aby "zawołać" innego użytkownika w treści komentarza należy jego nick poprzedzić symbolem "@". W ten sposób wspomniany użytkownik otrzyma powiadomienie o naszej aktywności.
+Dla zalogowanych użytkowników udostępniona została funkcja dyskusji na temat wpisów za pomocą komentarzy (rys. \ref{fig:comment}). Dodawanie nowych wpisów jest możliwe za pomocą formularza dostępnego w szczegółowym widoku wpisu. Dodatkowo w system komentarzy wbudowany jest system ,,wołania". Aby ,,zawołać" innego użytkownika w treści komentarza należy jego nick poprzedzić symbolem \textbf{\textit{,,@"}}. W ten sposób wspomniany użytkownik otrzyma powiadomienie o naszej aktywności (rys. \ref{fig:notification}).
 
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{images/komentarz.png}
     \caption{Formularz komentarzy}
-    \label{fig:my_label}
+    \label{fig:comment}
 \end{figure}
 
 \subsection{Obszar powiadomień}
-W tym miejscu użytkownik ma dostęp do listy swoich powiadomień między innymi z komentarzy.
+W tym miejscu (rys. \ref{fig:notification}) użytkownik ma dostęp do listy swoich powiadomień między innymi z komentarzy.
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{images/powiadomienia.png}
     \caption{Obszar powiadomień}
-    \label{fig:my_label}
+    \label{fig:notification}
 \end{figure}
 \chapter{Podsumowanie}
-\subsection{Osiągnięte cele}
-\subsection{Dalsza wizja rozwoju aplikacji}
+\ldots
+\section{Osiągnięte cele}
+\ldots
 
 %%%%% BIBLIOGRAFIA
 
