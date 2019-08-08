@@ -106,7 +106,7 @@
 
 \newboolean{Decl@ration}
 
-\setboolean{Decl@ration}{false}
+\setboolean{Decl@ration}{true}
 
 \newboolean{Many@Advisors}
 
@@ -178,7 +178,7 @@
 
 
 
-\ExecuteOptions{polish,lic,longabstract}
+\ExecuteOptions{polish,inz,shortabstract}
 
 \ProcessOptions\relax
 

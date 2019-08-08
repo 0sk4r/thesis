@@ -13,8 +13,10 @@
 % polecenia \fmlinebreak.
 \polishtitle    {Zastosowanie technologii React i Ruby on Rails w tworzeniu aplikacji webowych na przykładzie serwisu blogowego}
 \englishtitle   {Application React and Ruby on Rails to create web applications by the example of blog site}
-\polishabstract {\ldots}
-\englishabstract{\ldots}
+
+\polishabstract {Celem pracy było opracowanie oraz implementacja platformy blogowej łączącej funkcje popularnych serwisów. Do realizacji projektu użyto nowoczesnych rozwiązań. System składa się z dwóch części. Aplikacji serwerowej napisanej w języku Ruby z wykorzystaniem Ruby on Rails oraz strony internetowej będącej interfejsem użytkownika zaimplementowanej za pomocą popularnego frameworka React }
+
+\englishabstract{The purpose of the study was to develop the blog platform that combines the functionality of popular services. Modern solutions were used to implement this project. The system comprises of two parts. Server application was written in Ruby using Ruby on Rails and website that is a user interface was implemented using popular framework React.}
 % w pracach wielu autorow nazwiska mozna oddzielic poleceniem \and
 \author         {Oskar Sobczyk}
 % w przypadku kilku promotorow, lub koniecznosci podania ich afiliacji, linie
@@ -25,7 +27,7 @@
 \transcriptnum {281822}                     % Numer indeksu
 \advisorgen    {dr. Leszka Grocholskiego} % Nazwisko promotora w dopelniaczu
 %%%%%
-\usepackage{graphicx}
+\usepackage{graphicx, xcolor}
 %%%%% WLASNE DODATKOWE PAKIETY
 %
 %\usepackage{graphicx,listings,amsmath,amssymb,amsthm,amsfonts,tikz}
@@ -45,9 +47,9 @@
 %%%%% POCZĄTEK ZASADNICZEGO TEKSTU PRACY
 
 \chapter{Wprowadzenie}
-Tematem pracy jest aplikacja internetowa implementująca wybrane funkcje platformy blogowej. Platforma opisana w dalszej części pracy ma być połączeniem funkcji popularnych serwisów internetowych. Pierwszym z nich jest \textit{\textbf{Reddit}} założony w 2005 roku. Dziś jest piątą (według Alexa) najczęściej odwiedzaną stroną w Stanach Zjednoczonych, miesięcznie przyciągającą 330 milionów użytkowników. Na początku jej główną funkcjonalnością była możliwość dzielenia się linkami do stron przez użytkowników oraz głosowaniem i komentowanie ich. Z czasem wraz z rozwojem serwisu użytkownikom oddano możliwość dzielenia się nie tylko łączami do innych stron, ale też postami czy obrazkami. Dziś jest domem dla tysięcy społeczności. Drugim serwisem jest powstały w 2012 roku \textit{\textbf{Medium}}. Platforma skupia zarówno profesjonalnych dziennikarzy, jak i amatorów. Jej głównym celem jest dostarczenie użytkownikom wartościowych treści w przyjemnej formie. W odróżnieniu od Reddita strona skupia się na udostępnianej treści, a nie na interakcjach pomiędzy użytkownikami.
+Tematem pracy jest aplikacja internetowa implementująca wybrane funkcje platformy blogowej. {\color{red}Dzisiaj internet jest przepełniony treściami tworzonymi przez jego użytkowników np. za pomocą wpisów na portalach społecznościowych lub artykułach na blogach. Jest to atrakcyjna przestrzeń do tworzenia nowych aplikacji pomagających dzielić się treściami. Mimo dużej konkurencji na rynku nadal istnieje zapotrzebowanie na nowe serwisy. Przykładem jest}  \textit{\textbf{Reddit}} założony w 2005 roku. Dziś jest piątą (według Alexa) najczęściej odwiedzaną stroną w Stanach Zjednoczonych, miesięcznie przyciągającą 330 milionów użytkowników. Na początku jej główną funkcjonalnością była możliwość dzielenia się linkami do stron przez użytkowników oraz głosowaniem i komentowanie ich. Z czasem wraz z rozwojem serwisu użytkownikom oddano możliwość dzielenia się nie tylko łączami do innych stron, ale też postami czy obrazkami. Dziś jest domem dla tysięcy społeczności. Innym przykładem jest powstały w 2012 roku \textit{\textbf{Medium}}. Platforma skupia zarówno profesjonalnych dziennikarzy, jak i amatorów. Jej głównym celem jest dostarczenie użytkownikom wartościowych treści w przyjemnej formie. W odróżnieniu od Reddita strona skupia się na udostępnianej treści, a nie na interakcjach pomiędzy użytkownikami. 
 
-Podczas wyboru zestawu narzędzi do realizacji implementacji pracy chciałem, aby zawierał on jak najwięcej nowych, wykorzystywanych na rynku komercyjnym rozwiązań. Co pozwoliłoby mi poszerzyć moje umiejętności.
+{\color{red}Celem jest stworzenie aplikacji webowej która ma łączyć możliwość tworzenia rozbudowanych postów zaczerpniętą z Medium oraz udostępniać użytkownikom miejsce do dyskusji na ich temat podobnie jak w Reddicie.} Podczas wyboru zestawu narzędzi do realizacji implementacji pracy chciałem, aby zawierał on jak najwięcej nowych, wykorzystywanych na rynku komercyjnym rozwiązań. Co pozwoliłoby mi poszerzyć moje umiejętności. {\color{red} W wyniku tego zakres prac obejmuje aplikację \textbf{\textit{,,blogger-frontend"}} będącą interfejsem użytkownika oraz \textbf{\textit{,,blogger-backen"}} udostępniajace dane za pomocą API}
 
 \chapter{Opis i analiza zagadnienia}
 
@@ -74,15 +76,18 @@ Pierwsze blogi powstały w późnych latach 90-tych. Były prostymi, statycznymi
         \end{itemize}
 \end{itemize}
 
-\subsection{Dalszy rozwój aplikacji}
-
-Opisana w pracy aplikacja implementuje wybrane elementy serwisu blogowego, jednak została napisana w sposób pozwalający na dalszy rozwój w późniejszym terminie. Biorąc pod uwagę skalę popularności podobnych serwisów, dalszy rozwój aplikacji może pozwolić na wypuszczenie jej na rynek komercyjny. Kolejne etapy rozwoju zakładają:
+{\color{red}
+\section{Wymagania niefunkcjonalne}
 \begin{itemize}
-    \item rozwój systemu powiadomień, dodanie nowych typów
-    \item rozbudowa edytora postów (możliwości stylowania tekstu)
-    \item personalizowana strona główna, na której każdy użytkownik będzie mógł wybrać kategorię postów, jakimi jest zainteresowany
-    \item możliwość śledzenia użytkowników i bycia informowanym o ich aktywności
+    \item Prosty interfejs użytkownika
+    \item Bezpieczny system kont dla użytkowników
+    \item Rozszerzalność
+    \item Wykorzystanie narzędzi do statycznej analizy kodu
+    \item Zastosowanie narzędzi do ciągłej integracji podczas wytwarzania kodu
+    \item Działanie projektu na systemie Linux
+    
 \end{itemize}
+}
 
 % \subsection{Wnioski}-
 \chapter{Część dla programisty}
@@ -103,7 +108,7 @@ Należy spełnić następujące zależności:
         \end{itemize}
 
 \begin{enumerate}
-    \item W katalogu \textbf{\textit{,,thesis-code"}} poleceniem \textbf{\textit{,,bundle install"}} zainstalować dodatkowe biblioteki
+    \item W katalogu \textbf{\textit{,,blogger-backend"}} poleceniem \textbf{\textit{,,bundle install"}} zainstalować dodatkowe biblioteki
     \item Wykonać migracje do bazy danych poleceniem \textbf{\textit{,,rails db:migrate"}}
     \item Poleceniem \textbf{\textit{,,foreman start -f Procfile.dev"}} uruchomić serwer
 \end{enumerate}
@@ -116,7 +121,7 @@ Należy spełnić następujące zależności:
     \end{itemize}
 
 \begin{enumerate}
-    \item W folderze \textbf{\textit{,,thesis-frontend"}} poleceniem \textbf{\textit{,,yarn"}} zainstalować brakujące pakiety
+    \item W folderze \textbf{\textit{,,bloger-frontend"}} poleceniem \textbf{\textit{,,yarn"}} zainstalować brakujące pakiety
     \item Poleceniem \textbf{\textit{"yarn start"}} uruchomić serwer deweloperski, jego domyślny adres \textit{localhost:3001}
 \end{enumerate}
 
@@ -262,10 +267,27 @@ W tym miejscu (rys. \ref{fig:notification}) użytkownik ma dostęp do listy swoi
     \caption{Obszar powiadomień}
     \label{fig:notification}
 \end{figure}
+
+\section{Dostęp do działającego systemu}
+Działający system jest dostępny pod adresem \ldots. Aby korzystać ze wszystkich możliwości serwisu, należy założyć konto i potwierdzić je klikając w otrzymany e-mailem link. Dostępne jest również konto testowe login: test hasło: test.
+{\color{red}
 \chapter{Podsumowanie}
-\ldots
-\section{Osiągnięte cele}
-\ldots
+Celem pracy było utworzenie platformy blogowej łączącej funkcje serwisów Reddit oraz Medium. Do implementacji użyto nowoczesnych narzędzi takich jak frameworki React oraz Ruby on Rails. Pozwoliło to na stworzenie spełniającej nowoczesne standardy programistyczne oraz z zakresu interfejsu użytkownika. Dzięki zastosowanym w systemie technologiom stanowi on solidną podstawę pozwalającą na dalszy rozwój. 
+
+\section{Dalszy rozwój}
+
+Biorąc pod uwagę skalę popularności serwisów o podobnej funkcjonalności, dalszy rozwój aplikacji może pozwolić na wypuszczenie jej na rynek komercyjny. Aby zwiększyć zaangażowanie użytkowników do serwisu, przydatny może być system powiadomień. Jego rozbudowa o nowe typy notyfikacji sprawi że odbiorcy częściej będą odwiedzać portal. W celu uatrakcyjnienia części wizualne przydatną funkcją będzie rozbudowa edytora wpisów o możliwość pogrubiania czcionki, kursywy czy zmiany jej wielkości. Należy wziąć pod uwagę że nie każdy użytkownik jest zainteresowany wszystkimi treściami. Umożliwienie personalizacji strony głównej przez możliwość wyboru z jakich kategorii mają być wyświetlane wiadomości. Dzięki zastosowanej architekturze oddzielającej aplikacje serwerową od interfejsu użytkownika, istnieje możliwość aby w przyszłości powstała aplikacja mobilna wykorzystująca React Native oraz już istniejące API.
+
+
+% Kolejne etapy rozwoju zakładają:
+% \begin{itemize}
+%     \item rozwój systemu powiadomień, dodanie nowych typów powiadomiń
+%     \item rozbudowa edytora postów (możliwości stylowania tekstu)
+%     \item personalizowana strona główna, na której każdy użytkownik będzie mógł wybrać kategorię postów, jakimi jest zainteresowany
+%     \item możliwość śledzenia użytkowników i bycia informowanym o ich aktywności
+% \end{itemize}
+}
+
 
 %%%%% BIBLIOGRAFIA
 
