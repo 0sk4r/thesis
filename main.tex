@@ -98,7 +98,7 @@ Aplikacja jest napisana w architekturze klient-serwer, podczas jej tworzenia wyk
 \section{Uruchomienie aplikacji}
 
 \subsection{Backend}
-Wymagane oprogramowanie do uruchomienia backendu:
+Wymagane oprogramowanie do uruchomienia części serwerowej:
         \begin{itemize}
             \item Ruby w wersji 2.6.2,
             \item Bundler \cite{bundler} w wersji 1.17,
@@ -108,11 +108,12 @@ Wymagane oprogramowanie do uruchomienia backendu:
             \item Redis \cite{redis} w wersji 5.0.5.
         \end{itemize}
 
-Oto czynności, które trzeba wykonać, aby zainstalować backend:
+Oto czynności, które trzeba wykonać, aby zainstalować część serwerową:
 \begin{enumerate}
     \item W katalogu \textit{blogger-backend} poleceniem \textit{bundle install} zainstalować dodatkowe biblioteki.
-    \item Wykonać migracje do bazy danych poleceniem \textit{rails db:migrate}.
-    \item Wypełnić bazę danych przykładowymi danymi peleceniem \textit{rails db:seed}.
+    \item Poleceniem \textit{rake db:create} utworzyć bazę danych.
+    \item Wykonać migracje do bazy danych poleceniem \textit{rake db:migrate}.
+    \item Wypełnić bazę danych przykładowymi danymi peleceniem \textit{rake db:seed}.
     \item Poleceniem \textit{foreman start -f Procfile.dev} uruchomić serwer.
 \end{enumerate}
 
@@ -125,7 +126,7 @@ Wymagane oprogramowanie do uruchomienia frontendu:
 
 Oto czynności, które trzeba wykonać, aby uruchomić frontend:
 \begin{enumerate}
-    \item W folderze \textit{bloger-frontend} poleceniem \textit{yarn} zainstalować brakujące pakiety.
+    \item W folderze \textit{blogger-frontend} poleceniem \textit{yarn} zainstalować brakujące pakiety.
     \item Poleceniem \textit{yarn start} uruchomić serwer deweloperski, jego domyślny adres \textit{localhost:3001}.
 \end{enumerate}
 
