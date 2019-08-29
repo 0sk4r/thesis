@@ -57,7 +57,9 @@ W wyborze zestawu narzędzi do realizacji implementacji pracy kierowałem się t
 
 \chapter{Wymagania}
 
-Pierwsze blogi powstały w późnych latach 90. Były prostymi, statycznymi stronami WWW aktualizowanymi ręcznie. Wpisy były wyświetlane użytkownikowi w odwrotnej chronologicznej kolejności. Wraz z upływem czasu i wzrostem popularności internetowych dzienników powstały specjalne serwisy oraz oprogramowanie służące do ich obsługi. Pozwoliło to na prowadzenie własnego bloga przez przeciętnego użytkownika internetu. Dzisiaj najpopularniejszą odmianą są mikroblogi – strony umożliwiające użytkownikom dzielenie się krótkimi, kilku zdaniowymi przemyśleniami lub obrazkami, np. Twitter \cite{twitter}, Facebook \cite{facebook}, Wykop.pl \cite{wykop}. Poniżej opisano wymagania funkcjonalne i niefunkcjonalne wytwarzanego systemu.
+Pierwsze blogi powstały w późnych latach 90. Były prostymi, statycznymi stronami WWW aktualizowanymi ręcznie. Wpisy były wyświetlane użytkownikowi w odwrotnej chronologicznej kolejności. Wraz z upływem czasu i wzrostem popularności internetowych dzienników powstały specjalne serwisy oraz oprogramowanie służące do ich obsługi. Pozwoliło to na prowadzenie własnego bloga przez przeciętnego użytkownika internetu. Dzisiaj najpopularniejszą odmianą są mikroblogi – strony umożliwiające użytkownikom dzielenie się krótkimi, kilku zdaniowymi przemyśleniami lub obrazkami, np. Twitter \cite{twitter}, Facebook \cite{facebook}, Wykop.pl \cite{wykop}.
+
+Poniżej opisano wymagania funkcjonalne i niefunkcjonalne wytwarzanego systemu.
 
 \subsubsection{Wymagania funkcjonalne}
 
@@ -73,7 +75,7 @@ Pierwsze blogi powstały w późnych latach 90. Były prostymi, statycznymi stro
     \item Zalogowany użytkownik może:
         \begin{itemize}
             \item wylogować się;
-            \item pisać nowe posty
+            \item pisać nowe posty;
             \item pisać komentarze;
             \item przeglądać listę powiadomień.
         \end{itemize}
@@ -93,7 +95,7 @@ Pierwsze blogi powstały w późnych latach 90. Były prostymi, statycznymi stro
 % \subsection{Wnioski}-
 \chapter{Część dla programisty}
 \section{Architektura aplikacji}
-Aplikacja jest napisana w architekturze klient-serwer, podczas jej tworzenia wykorzystano wzorzec separacji zagadnień (ang. \textit{separation of concerns}, SoC). Pozwoliło to na podzielenie serwisu na dwie części. Pierwszą jest warstwa dostępu do danych napisana w języku Ruby \cite{ruby} z wykorzystaniem Ruby on Rails \cite{ror}. Odpowiada ona za przechowywanie danych w bazie danych PostgreSQL \cite{postgre} oraz za ich udostępnianie za pomocą API. Drugą częścią jest warstwa prezentacji, która wykorzystuje JavaScript oraz framework React \cite{react} w celu prezentacji danych. Taki podział pozwala na niezależny rozwój każdej części aplikacji.
+Aplikacja jest napisana w architekturze klient-serwer, podczas jej tworzenia wykorzystano wzorzec separacji zagadnień (ang. \textit{separation of concerns}, SoC) \cite{soc}. Pozwoliło to na podzielenie serwisu na dwie części. Pierwszą jest warstwa dostępu do danych napisana w języku Ruby \cite{ruby} z wykorzystaniem Ruby on Rails \cite{ror}. Odpowiada ona za przechowywanie danych w bazie danych PostgreSQL \cite{postgre} oraz za ich udostępnianie za pomocą API. Drugą częścią jest warstwa prezentacji, która wykorzystuje JavaScript oraz framework React \cite{react} w celu prezentacji danych. Taki podział pozwala na niezależny rozwój każdej części aplikacji.
 
 \section{Uruchomienie aplikacji}
 
@@ -105,7 +107,8 @@ Wymagane oprogramowanie do uruchomienia części serwerowej:
             \item Foreman \cite{foreman} w wersji 0.85.0,
             \item Pozostałe zależności z pliku \textit{Gemfile},
             \item PostgreSQL w wersji 11.3,
-            \item Redis \cite{redis} w wersji 5.0.5.
+            \item Node.js 10
+            \item Redis \cite{redis} w wersji 5.0.5 działający w tle.
         \end{itemize}
 
 Oto czynności, które trzeba wykonać, aby zainstalować część serwerową:
@@ -113,7 +116,7 @@ Oto czynności, które trzeba wykonać, aby zainstalować część serwerową:
     \item W katalogu \textit{blogger-backend} poleceniem \textit{bundle install} zainstalować dodatkowe biblioteki.
     \item Poleceniem \textit{rake db:create} utworzyć bazę danych.
     \item Wykonać migracje do bazy danych poleceniem \textit{rake db:migrate}.
-    \item Wypełnić bazę danych przykładowymi danymi peleceniem \textit{rake db:seed}.
+    \item Wypełnić bazę danych przykładowymi danymi poleceniem \textit{rake db:seed}.
     \item Poleceniem \textit{foreman start -f Procfile.dev} uruchomić serwer.
 \end{enumerate}
 
@@ -149,7 +152,11 @@ Część serwerowa została napisana z wykorzystaniem frameworka Ruby on Rails. 
     \end{minipage}
 \end{figure}
 \subsection{Struktura backendu}
-Struktura części serwerowej przedstawiona na rysunkach \ref{fig:struktura_serwer1} i \ref{fig:struktura_serwer2} powstała w wyniku działania wbudowanego w Ruby on Rails generatora. Utworzył on minimalną konfigurację potrzebną do rozpoczęcia pracy. Framework implementuje architekturę \textbf{MVC (Model-Widok-Kontroler)} \cite{rortutorial}. Zakłada ona podział na trzy główne części. Model jest odpowiedzialny za zarządzanie danymi oraz implementacje logiki biznesowej. Widok ma za zadanie prezentację modelu za pomocą ustalonego formatu. Natomiast kontroler przyjmuje żądania od użytkownika i wykonuje operacje na modelach. Najważniejszą częścią projektu jest katalog \textit{app} zawierający wszystkie komponenty aplikacji. W podkatalogu \textit{app/controllers} umieszczono kontrolery odpowiadające za nadanie sensu żądaniom przychodzącym do API oraz za wygenerowanie poprawnej odpowiedzi (rys. \ref{fig:kontroler}). W nazwie każdego kontrolera zawarta jest informacja, na jakim modelu on operuje. W \textit{app/services} znajdują się klasy serwisów, które implementują interakcje użytkownika z aplikacją. Pozwala to na wyodrębnienie logiki biznesowej z kontrolerów. Konfiguracje do serializera odpowiedzialnego za przekształcanie instancji modeli na format JSON znajdują się w folderze \textit{app/serializers}. Definicje modeli (rys. \ref{fig:model}) zlokalizowane są w folderze \textit{app/models}. Katalog \textit{db} zawiera aktualny schemat bazy danych, co umożliwia przenoszenie bazy pomiędzy komputerami oraz migrację, czyli zestaw plików napisany w Ruby DSL pozwala na zmianę schematu bazy danych bez potrzeby pisania ręcznie poleceń SQL.
+Struktura części serwerowej przedstawiona na rysunkach \ref{fig:struktura_serwer1} i \ref{fig:struktura_serwer2} powstała w wyniku działania wbudowanego w Ruby on Rails generatora. Utworzył on minimalną konfigurację potrzebną do rozpoczęcia pracy. Framework implementuje architekturę \textbf{MVC (Model-Widok-Kontroler)} \cite{rortutorial}. Zakłada ona podział na trzy główne części. Model jest odpowiedzialny za zarządzanie danymi. Widok ma za zadanie prezentację modelu za pomocą ustalonego formatu. Natomiast kontroler przyjmuje żądania od użytkownika i wykonuje operacje na modelach. 
+
+\newpage
+
+Najważniejszą częścią projektu jest katalog \textit{app} zawierający wszystkie komponenty aplikacji. W podkatalogu \textit{app/controllers} umieszczono kontrolery odpowiadające za nadanie sensu żądaniom przychodzącym do API oraz za wygenerowanie poprawnej odpowiedzi (rys. \ref{fig:kontroler}). W nazwie każdego kontrolera zawarta jest informacja, na jakim modelu on operuje. W \textit{app/services} znajdują się klasy serwisów, które implementują interakcje użytkownika z aplikacją. Pozwala to na wyodrębnienie logiki biznesowej z kontrolerów. Konfiguracje do serializera odpowiedzialnego za przekształcanie instancji modeli na format JSON znajdują się w folderze \textit{app/serializers}. Definicje modeli (rys. \ref{fig:model}) zlokalizowane są w folderze \textit{app/models}. Katalog \textit{db} zawiera aktualny schemat bazy danych, co umożliwia przenoszenie bazy pomiędzy komputerami oraz migracje, czyli zestaw plików napisany w Ruby DSL pozwala na zmianę schematu bazy danych bez potrzeby pisania ręcznie poleceń SQL.
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{images/kontroler.png}
@@ -175,6 +182,7 @@ Baza danych (rys. \ref{fig:erd_diagram}) składa się z następujących tabel:
     \item \textbf{post} - podstawowy typ danych w platformie blogowej. Składa się z tytułu, zawartości oraz łącza do miniaturki.
     \item \textbf{comment} - przechowuje zawartość komentarzy.
     \item \textbf{like} - odpowiada za przechowywanie głosów użytkowników.
+    \item \textbf{follow} - przechowuje dane o obserwowanych osobach w postaci par obserwujący, obserwowany.
     \item \textbf{mention} - gromadzi dane z systemu wspomnień. Dla każdej wspomnianej osoby w komentarzu przechowuje wpis z identyfikatorem użytkownika oraz komentarza, co pozwala na szybkie znalezienie zarówno osób skojarzonych z wpisem, jak i postów przypisanych danej osobie.
     \item \textbf{notification} - odpowiada za powiadomienia. Dzięki polimorficznym asocjacjom możliwa jest rozbudowa tego systemu wraz z rozwojem aplikacji. Dla każdego wpisu w tabeli pamiętany jest zarówno identyfikator powiązanego obiektu, jak i jego typ. Pozwala to, aby jedna tabela zawierała odniesienia do wielu tabel.
 \end{itemize}
@@ -203,6 +211,10 @@ Aby ograniczyć dostęp do wybranych funkcjonalności API, wykorzystano system u
     \caption{Proces obsługi tokenu \cite{token}}
     \label{fig:token}
 \end{figure}
+
+\subsection{Wyszukiwanie wpisów}
+Użytkownikom udostępniono wyszukiwarkę pozwalającą przeszukiwać posty ze względu na ich tytuł. Zastosowano wbudowaną w silnik bazy danych metodę przeszukiwania tekstu \textit{Full-text search} \cite{textsearch}. W odróżnieniu od operatorów \textit{ILIKE} oraz \textit{LIKE} które wykorzystują wyrażenia regularne, wyszukiwanie pełnotekstowe uwzględnia dodatkowe informacje np. językowe. Dzięki temu znalezione zostaną nie tylko wystąpienia wzorca, ale również wyrazy pochodne do szukanych.
+
 
 \subsection{Ciągła integracja}
 W procesie wytwarzania oprogramowania zastosowano technikę ciągłej integracji (z ang. \textit{continuous integration}) \cite{ci} z wykorzystaniem serwisu Travis CI \cite{travis}. Każdy zestaw zmian wysyłany do repozytorium GIT wyzwala proces przeprowadzenia testów oraz statycznej analizy kodu. Taka praktyka przyśpiesza wykrywanie błędów oraz wspomaga egzekwowanie wytycznych dotyczących stylu kodu.
@@ -233,15 +245,15 @@ Punktem wejścia do aplikacji jest \textit{App.js} (rys. \ref{fig:app.js}), gdzi
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{images/appjs.png}
-    \caption{Plik App.js}
+    \includegraphics[height=19cm]{images/appjs2.png}
+    \caption{Zawartość pliku  App.js}
     \label{fig:app.js}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{images/komponent1.png}
-    \caption{Przykładowy komponent}
+    \caption{Kod przykładowego komponentu}
     \label{fig:komponent1}
 \end{figure}
 
@@ -273,13 +285,29 @@ W tym widoku (rys. \ref{fig:post_view}) użytkownik ma dostęp do pełnej treśc
     \caption{Ekran widoku szczegółowego}
     \label{fig:post_view}
 \end{figure}
+\subsubsection{Strona użytkownika}
+Użytkownik, klikając w pseudonim jednego z użytkowników, zostanie przekierowany na stronę użytkownika (rys. \ref{fig:uzytkownik}) zawierającą wszystkie jego wpisy.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/stronauzytkownika.png} 
+    \caption{Ekran strony użytkownika}
+    \label{fig:uzytkownik}
+\end{figure}
+\subsubsection{Wyszukiwarka}
+Użytkownicy mają możliwość wyszukiwania wpisów ze względu na tytuł za pomocą wyszukiwarki (rys. \ref{fig:wyszukiwarka}).
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/wyszukiwarka.png}
+    \caption{Ekran wyszukiwania}
+    \label{fig:wyszukiwarka}
+\end{figure}
 \subsubsection{Rejestracja nowego użytkownika}
 Aby zarejestrować się w serwisie (rys. \ref{fig:register}), należy podać imię, nick, e-mail, hasło. Opcjonalnie użytkownik może dodać swój awatar. Po wysłaniu formularza na podany wcześniej adres poczty zostanie wysłany link aktywujący konto.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{images/rejestracja.png}
+    \includegraphics[width=\textwidth]{images/rejestracja2.png}
     \caption{Formularz rejestracji nowego użytkownika}
     \label{fig:register}
 \end{figure}
@@ -318,8 +346,18 @@ Dla zalogowanych użytkowników udostępniona została funkcja dyskusji na temat
     \label{fig:comment}
 \end{figure}
 
+\subsubsection{Obserwowanie użytkowników}
+Każdy zarejestrowany użytkownik może otrzymywać powiadomienia o nowych wpisach wybranych użytkowników. Wystarczy, że doda ich do listy obserwowanych za pomocą przycisku \textit{Follow} (rys. \ref{fig:follow})dostępnego na stronie użytkownika.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{images/follow.png}
+    \caption{Przycisk dodający do listy obserwowanych}
+    \label{fig:follow}
+\end{figure}
+
 \subsection{Obszar powiadomień}
-W obszarze powiadomień (rys. \ref{fig:notification}) użytkownik ma dostęp do listy swoich powiadomień pochodzących między innymi z komentarzy.
+W obszarze powiadomień (rys. \ref{fig:notification}) użytkownik ma dostęp do listy swoich powiadomień pochodzących z komentarzy lub nowych wpisów obserwowanych osób.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{images/powiadomienia.png}
@@ -350,6 +388,8 @@ Biorąc pod uwagę skalę popularności serwisów o podobnej funkcjonalności, m
 \url{https://www.facebook.com}
 \bibitem{wykop} Wykop.pl 
 \url{https://www.wykop.pl}
+\bibitem{soc} Separation fo concerns
+\url{https://en.wikipedia.org/wiki/Separation_of_concerns}
 \bibitem{ruby} Ruby
 \url{https://www.ruby-lang.org/}
 \bibitem{ror} Ruby on Rails
@@ -385,6 +425,8 @@ Getting Started with Rails
 \url{https://en.wikipedia.org/wiki/ACID}
 \bibitem{sidekiq} Sidekiq
 \url{https://github.com/mperham/sidekiq}
+\bibitem{textsearch} PostgreSQL: Full Text Search
+\url{https://www.postgresql.org/docs/10/textsearch-intro.html}
 \bibitem{ci} Continuous integration
 \url{https://en.wikipedia.org/wiki/Continuous_integration}
 \bibitem{travis} Travis CI
