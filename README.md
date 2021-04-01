@@ -4,8 +4,8 @@
 The purpose of the study was to develop the blog platform that combines the functionality of popular services (Reddit, Medium). Modern solutions were used to implement this project. The system comprises of two parts. Server application was written in Ruby using Ruby on Rails framework and website that is a user interface, which was implemented using popular React framework.
 
 * [Thesis](https://github.com/0sk4r/thesis/blob/master/thesis.pdf)
-* [Blogger-backend](https://github.com/0sk4r/thesis-frontend)
-* [Blogger-frontend](https://github.com/0sk4r/thesis-backend)
+* [Blogger-frontend](https://github.com/0sk4r/thesis-frontend)
+* [Blogger-backend](https://github.com/0sk4r/thesis-backend)
 
 ## Tech stack
 
